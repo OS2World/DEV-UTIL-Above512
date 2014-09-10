@@ -1,0 +1,10 @@
+; ABOVE512.def  LX format 32bit DLL module 'loading above 512MB' marking utility,
+;   version 0.01b (internal/experimental use only)
+; Copyright 2004 Takayuki 'January June' Suwa.
+
+NAME ABOVE512 WINDOWCOMPAT
+DESCRIPTION "@#JJSuwa:0.01#@##1##Wed Jan 28 07:21:55 2004 serina::::2::@@ LX format 32bit DLL module 'loading above 512MB' marking utility"
+PROTMODE
+BASE=0x10000
+STACKSIZE 0x8000
+
