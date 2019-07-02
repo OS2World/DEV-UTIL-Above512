@@ -1,0 +1,11 @@
+; Rx512MiB.DEF  LX format 32bit DLL module 'loading above 512 MiB' marking utility,
+;   version 0.01d (internal/experimental use only)
+; Copyright 2004 Takayuki 'January June' Suwa.
+
+LIBRARY ABOVE512 INITINSTANCE LONGNAMES
+
+DESCRIPTION "@#JJSuwa:0.01d#@##1##Sun Jun 23 19:51:21 2019 serina::::2::@@ LX format 32bit DLL module 'loading above 512 MiB' marking utility (Rexx DLL version)"
+DATA MULTIPLE NONSHARED
+STACKSIZE 32768
+EXPORTS
+     ABOVE512          = Above512          @1

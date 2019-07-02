@@ -1,5 +1,5 @@
-/* ABOVE512.c  LX format 32bit DLL module 'loading above 512MB' marking utility,
-     version 0.01b (internal/experimental use only)
+/* ABOVE512.c  LX format 32-bit DLL module 'loading above 512 MiB' marking utility,
+     version 0.01d (internal/experimental use only)
    Copyright 2004 Takayuki 'January June' Suwa. */
 
 #pragma strings(readonly)
@@ -11,7 +11,7 @@ typedef USHORT WORD;
 typedef ULONG DWORD;
 #define FOR_EXEHDR 1
 #include <exe386.h>
-#define OBJHIMEM 0x00010000L  /* Object is loaded above 512MB if available */
+#define OBJHIMEM 0x00010000L  /* Object is loaded above 512 MiB if available */
 
 /*  */
 extern APIRET APIENTRY DosReplaceModule(PSZ pszOldModule,
@@ -118,28 +118,28 @@ int main(int argc,
                               (PVOID)&aulSysInfo[0],
                               (ULONG)sizeof(aulSysInfo));
         (void)printf("\n"
-                     "ABOVE512.exe  LX format 32bit DLL module 'loading above 512MB' marking utility,\n"
-                     "  version 0.01b (internal/experimental use only)\n"
+                     "ABOVE512.exe  LX format 32-bit DLL module 'loading above 512 MiB' marking\n"
+                     "  utility, version 0.01d (internal/experimental use only)\n"
                      "Copyright 2004 Takayuki 'January June' Suwa.\n"
                      "\n"
                      "usage: ABOVE512 {DLL module file} [-options]\n"
                      "  without options, ABOVE512 shows current DLL object information.\n"
                      "options: -q  quiets (no message)\n"
-                     "         -c  marks pure 32bit code objects as 'loading above 512MB'\n"
-                     "         -d  marks pure 32bit data objects as so\n"
-                     "         -b  marks both of pure 32bit code and data objects\n"
-                     "         -p  marks pure 32bit preloaded code/data objects and removes preload\n"
-                     "         -u  unmarks 'loading above 512MB' pure 32bit code/data objects\n"
+                     "         -c  marks pure 32-bit code objects as 'loading above 512 MiB'\n"
+                     "         -d  marks pure 32-bit data objects as so\n"
+                     "         -b  marks both of pure 32-bit code and data objects\n"
+                     "         -p  marks pure 32-bit preloaded code/data objects and removes preload\n"
+                     "         -u  unmarks 'loading above 512 MiB' pure 32-bit code/data objects\n"
                      "         -!  unlocks the DLL module before open\n"
-                     "current free virtual address space in kB (private / shared):\n"
-                     "  %u / %u below 512MB line",
+                     "current free virtual address space in KiB (private / shared):\n"
+                     "  %u / %u below 512 MiB line",
                      (aulSysInfo[0] + (ULONG)512) / (ULONG)1024,
                      (aulSysInfo[1] + (ULONG)512) / (ULONG)1024);
         if(DosQuerySysInfo(QSV_MAXHPRMEM,
                            QSV_MAXHSHMEM,
                            (PVOID)&aulSysInfo[0],
                            (ULONG)sizeof(aulSysInfo)) == NO_ERROR)
-            (void)printf(", %u / %u above 512MB line\n",
+            (void)printf(", %u / %u above 512 MiB line\n",
                          (aulSysInfo[0] + (ULONG)512) / (ULONG)1024,
                          (aulSysInfo[1] + (ULONG)512) / (ULONG)1024);
         else
@@ -203,7 +203,7 @@ int main(int argc,
        pxLXHeader->e32_cpu < E32CPU386 ||
        (pxLXHeader->e32_mflags & (E32NOLOAD | E32MODMASK)) != E32MODDLL)
     {
-        (void)printf("ABOVE512: \"%s\" is not LX format 32bit DLL module.\n",
+        (void)printf("ABOVE512: \"%s\" is not LX format 32-bit DLL module.\n",
                      (const char*)pszModule);
         (VOID)DosFreeMem(pvBuffer);
         (VOID)DosClose(hfModule);
@@ -221,7 +221,7 @@ int main(int argc,
             (void)printf(" object %u : base 0x%08x, size 0x%08x, flags 0x%08x\n"
                          "  %sreadable, %swriteable, %sexecutable, %sresource, %sdiscardable, %sshared,\n"
                          "  %spreload, %sinvalid, %s, %s16:16 alias, %sconforming,\n"
-                         "  %s32bit, %sIOPL, %shimem\n",
+                         "  %s32-bit, %sIOPL, %shimem\n",
                          (unsigned int)ulIndex,
                          (unsigned int)pxObjTable->o32_base,
                          (unsigned int)pxObjTable->o32_size,
@@ -247,7 +247,7 @@ int main(int argc,
                 (void)printf("   modified,\n"
                              "    %sreadable, %swriteable, %sexecutable, %sresource, %sdiscardable, %sshared,\n"
                              "    %spreload, %sinvalid, %s, %s16:16 alias, %sconforming,\n"
-                             "    %s32bit, %sIOPL, %shimem\n",
+                             "    %s32-bit, %sIOPL, %shimem\n",
                              (pxObjTable->o32_flags & OBJREAD) != (unsigned long)0 ? "" : "!",
                              (pxObjTable->o32_flags & OBJWRITE) != (unsigned long)0 ? "" : "!",
                              (pxObjTable->o32_flags & OBJEXEC) != (unsigned long)0 ? "" : "!",

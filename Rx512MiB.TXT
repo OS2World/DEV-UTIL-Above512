@@ -1,0 +1,12 @@
+The stand-alone Above512 Rexx DLL file works like the stand-alone Above512
+executable, but only supports the options -c, -u and -!, and returns codes
+which may be different in case of an error:
+
+0 - Success
+1 - No module name specified
+2 - No valid options specified
+3 - Cannot open module
+4 - Cannot read module
+5 - Not a LX format 32-bit module
+6 - Cannot write module
+7 - Cannot restore date/time attributes
